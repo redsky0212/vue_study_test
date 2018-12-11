@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="uft-8" />
+        <title>실습1</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+
+        <div id="app">
+            {{message}}
+            <my-component></my-component>
+        </div>
+
+        <script>
+var app = null;
+
+function ready(){
+    app = new Vue({
+        el:'#app'
+        ,data: {
+            message: '시작하기!'
+        }
+        ,beforeCreate: function(){
+            console.log('beforeCreate');
+        }
+        ,created: function(){
+            console.log('created');
+        }
+        ,mounted: function(){
+            console.log('mounted');
+            this.message = '두번째!!!'
+        }
+        ,updated: function(){
+            console.log('updated');
+        }
+    });
+}
+document.addEventListener("DOMContentLoaded", ready);
+
+
+Vue.component('my-component', {
+    template: '<div>custom component test!!!</div>'
+});
+
+
+        </script>
+    </body>
+</html>

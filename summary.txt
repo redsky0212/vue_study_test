@@ -1,3 +1,50 @@
-** VUE시작하기
+** Vue.js  (인프런, 누구나 다루기 쉬운 Vue.js 프론트 개발)
+
+* 인스턴스 생성
+  var app = new Vue({
+      el : '#app_id'
+      ,data : {
+          message : '시작하기!!'
+      }
+  });
+
+
+* 라이프싸이클 
+ - 데이터 관찰
+ - 템플릿 컴파일
+ - DOM에 객체연결
+ - 데이터 변경시 DOM 업데이트
+
+* 라이프싸이클 코딩
+    var app = new Vue({
+        el:'#app'
+        ,data: {
+            message: '시작하기!'
+        }
+        ,beforeCreate: function(){
+            console.log('beforeCreate');
+        }
+        ,created: function(){
+            console.log('created');
+        }
+        ,mounted: function(){
+            console.log('mounted');
+            this.message = '변경!!!'
+        }
+        ,updated: function(){
+            console.log('updated');
+        }
+    });
+
+* 컴포넌트 등록 간단 실습
+  <my-component></my-component> // html에 컴포넌트 이름으로 추가.
+
+  Vue.component('my-component', {
+    template: '<div>custom component test!!!</div>'
+  });
+
+
+* (전역, 지역) 컴포넌트 등록 방법
+
 
 
