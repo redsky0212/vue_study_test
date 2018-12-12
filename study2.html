@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="uft-8" />
+        <title>실습2</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+
+        <div id="sender-app">
+            <input v-model="text">
+            <button @click="sender">sender</button>
+            <div v-if="receiveText">#sender-app: I sent a message a {{ receiveText }}</div>
+
+            <!-- todo-list 컴포넌트-->
+            <todo-list v-bind:languages-all="language"></todo-list>
+        </div>
+        <div id="receiver-app">
+            <div v-if="text">#receiver-app: {{ text }}</div>
+        </div>
+
+        <script>
+// 공용 이벤트버스 생성
+//var EventBus = new Vue(); 
+// Vue내에서만 EventBus를 사용하기 위한 코드.
+Vue.prototype.$eventBus = new Vue();
+
+
+
+var SenderApp = new Vue({ 
+    el: '#sender-app', 
+    data() { return { 
+        text: '', 
+        receiveText: '',
+        Todos : [
+            {id:0, text:'Learn Vue.js'},
+            {id:1, text:'Learn Components'},
+            {id:2, text:'Learn Props'},
+            {id:3, text:'Learn For Loop'}
+        ],
+        language : ['python', 'c++', 'java', 'objective-c']
+    } }, 
+    created() { 
+       // EventBus.$on('message', this.onReceive); // 발행된 'message'의 EventBus를 구독.
+        this.$eventBus.$on('message', this.onReceive); // 발행된 'message'의 EventBus를 구독.
+    }, 
+    methods: { 
+        sender() { 
+            //EventBus.$emit('message', this.text); // 입력된 input의 text를 발행
+            this.$eventBus.$emit('message', this.text); // 입력된 input의 text를 발행
+            this.text = ''; 
+        }, 
+        onReceive(text) { 
+            this.receiveText = text; 
+        } 
+    } 
+    ,components:{
+        'todo-list' : {
+            data: function(){ return {
+                
+            }; }
+            ,props: ['languagesAll']
+            ,template: '<ul><li v-for="item in languagesAll" :key="item"><a href="">{{item}}</a></li></ul>'
+            ,methods:{}
+        }
+    }
+});
+
+var ReceiverApp = new Vue({ 
+    el: '#receiver-app', 
+    data() { return { text: '' } }, 
+    created() { 
+        //EventBus.$on('message', this.onReceive);  // 발행된 'message'의 EventBus를 구독.
+        this.$eventBus.$on('message', this.onReceive); // 발행된 'message'의 EventBus를 구독.
+    }, 
+    methods: { 
+        onReceive(text) { 
+            this.text = text; 
+        } 
+    } 
+});
+
+
+
+
+        </script>
+    </body>
+</html>

@@ -9,7 +9,11 @@
 
         <div id="app">
             {{message}}
-            <my-component></my-component>
+            <my-component v-bind:passed-data="message"></my-component>
+            <my-local-component></my-local-component>
+
+            <!-- 새로운 component 등록 -->
+            <sibiling-component v-bind:local-msg="anotherMessage"></sibiling-component>
         </div>
 
         <script>
@@ -20,6 +24,7 @@ function ready(){
         el:'#app'
         ,data: {
             message: '시작하기!'
+            ,anotherMessage: '다른 message값'
         }
         ,beforeCreate: function(){
             console.log('beforeCreate');
@@ -34,14 +39,29 @@ function ready(){
         ,updated: function(){
             console.log('updated');
         }
+        // 지역콤포넌트
+        ,components:{
+            'my-local-component' : {
+                data: function(){ return {}; }
+                ,template: '<div>custom local component test!!!</div>'
+                ,methods:{}
+            }
+            ,'sibiling-component' : {
+                props:['localMsg']
+                ,template : '<div>{{localMsg}}</div>'
+            }
+        }
     });
 }
 document.addEventListener("DOMContentLoaded", ready);
 
-
+// 전역 콤포넌트
 Vue.component('my-component', {
-    template: '<div>custom component test!!!</div>'
+    props: ['passedData']
+    ,template: '<div>{{passedData}}</div>'
 });
+
+
 
 
         </script>

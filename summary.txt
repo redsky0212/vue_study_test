@@ -45,6 +45,70 @@
 
 
 * (전역, 지역) 컴포넌트 등록 방법
+  - 전역등록방법------------------------
+    Vue.component('my-component', {
+        template: '<div>custom component test!!!</div>'
+    });
+  - 지역등록방법------------------------
+   // 옵션에 'components'로 등록.
+    new Vue({
+        components:{
+            'my-cmp' : {
+                data: function(){ return {}; }
+                ,template: '<div>custom local component test!!!</div>'
+                ,methods:{}
+            }
+        }
+    });
+
+* (전역,지역) 컴포넌트의 차이점
+ - local component는 해당 vue인스턴스 내에서만 사용할 수 있다.
 
 
+* 상,하위 컴포넌트간 데이터 전달 방식 (parent - child)
+ - 부모 -> 자식 : props down
+ - 자식 -> 부모 : events up
+ 
+* Props 이해
+ - 상위에서 하위로 값 전달.
+ - 각 컴포넌트 간 값을 직접참조를 못하고 props로만 전달 가능.
+ - 상위에서 태그에 속성으로 v-bind:케밥기법props명('-'가 들어간 형태)="상위data의 값"
+ - 하위 컴포넌트에서는 카멜기법으로 props명을 받아야함 props:[카멜기법props명]
 
+    <my-component v-bind:passed-data="message"></my-component>
+    app = new Vue({
+        el:'#app'
+        ,data: { message: '시작하기!' }
+    });
+    // 전역 콤포넌트
+    Vue.component('my-component', {
+        props: ['passedData']
+        ,template: '<div>{{passedData}}</div>'
+    });
+
+* 같은 레벨의 컴포넌트 간 통신
+ - 직접적인 참조가 불가능 하다.
+ - 자식 -> 부모 -> 다시 2개의 자식
+
+* Event Bus - 컴포넌트 간 통신
+ - 컴포넌트끼리 관계가 없더라도 서로 통신이 가능하게 하는 방식.
+ - 기본코드
+   var EventBus = new Vue();                    // 이벤트 생성
+   EventBus.$emit('message', '헬로우 Vue!');    // 이벤트 발행
+   EventBus.$on('message', function(txt){       // 이벤트 구독
+       console.log(txt);
+   });
+
+* Component실습 (component생성, porps사용, for사용)
+ - todo-list 컴포넌트를 만들고 todo데이터리스트를 넘겨받는다.
+ - for문을 이용하여 리스트렌더링을 한다.
+ - for문을 사용할시 데이터에 고유한key값을 가지고 있는게 좋고 for문 돌때 v-bind:key= 속성을 넣어서 
+    성능 향상을 해주는게 좋다.
+
+* Vue 라우터 소개
+ - npm install vue-router --save 설치 또는 <script src="/path/vue-router.js"></script> 포함.
+ - 라우터에서 모듈시스템과 함께 사용하려면 명시적으로 Vue.use(); 로 라우터를 등록해야한다. (https://router.vuejs.org/installation.html#direct-download-cdn)
+ - 라우터 구조 :  rootUrl/#/라우터네임 
+ - 라우터의 '#'을 제외하고싶으면 아래와 같이 mode값에 'history'를 추가하면 된다.
+   const router = new VueRouter({ routes, mode:'history' });
+ 
