@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="uft-8" />
+        <title>실습3 라우터</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="./js/vendor/vue-router.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>Hello Vue Router!!</h1>
+            <p>
+                <router-link to="/foo">Go to Foo</router-link>
+                <router-link to="/bar">Go to Bar</router-link>
+            </p>
+            <router-view></router-view>
+        </div>
+        
+        <script>
+function ready(){
+    
+
+    var Foo = {template:'<div>Foo</div>'};
+    var Bar = {template:'<div>Bar</div>'};
+
+    var routes = [
+        {path:'/foo', component:Foo}
+        ,{path:'/bar', component:Bar}
+    ];
+
+    var router = new VueRouter({
+        routes
+    });
+
+    var app = new Vue({
+        router
+    }).$mount('#app');
+}
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", ready);
+        </script>
+        
+    </body>
+</html>
