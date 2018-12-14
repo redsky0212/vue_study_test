@@ -153,4 +153,78 @@
 
 * Filter :  - todo 스터디필요
  - 화면에 표시되는 텍스트의 형식을 편하게 다양하게 바꿀 수 있도록 고안된 기능
+ - '|' 를 이용하여 뒤쪽에 넣을 수 있음. 
+    ex) {{message | capitalize}} 
 
+    new Vue({
+        Filters : {
+            capicalize : function(value){
+                // 들어온 value를 원하는 로직을 지나 return시킬 수 있음.
+            }
+        }
+    }); 
+
+
+* Vue 데이터 바인딩
+ - 크게 3가지 방법이 있음.
+    Interpolation
+    Binding Expressions
+    Directives
+
+
+* Interpolation 데이터 바인딩
+ - {{}} 으로 데이터를 바인딩 하는 기법.
+
+
+* Binding Expressions 데이터바인딩
+ - {{}} 안에 javascript 표현식을 사용할 수 있다.
+   <div>{{number + 1}}</div>
+   <div>{{message.split('').reverse().join('')}}</div>
+ - {{}} 안에 Vue의 Filter를 사용할 수 있다.
+   {{message | capitalize}}
+   {{message | capitalize | upcapicalize}}
+
+
+* Directives 데이터 바인딩
+ - v-접두사를 이용하여 attribute에 바인딩 할 수 있음.
+   <p v-if="login">Hello</p>
+   <a v-on:click="doSomething">
+
+
+* class 바인딩 방법
+ - class="{{ className }}" , v-bind:class 이런 방법으로 적용할 수 있다.
+ - 기존 class에 또다른 class를 넣을 수 있다. 클리스문법은 '{}'를 사용.
+   <div class="static" v-bind:class="{'class-a':isA, 'class-b': isB}"></div>
+   <script>
+    data:{
+        isA:true,
+        isB:false
+    }
+   </script>
+   -> 결과값은 <div class="static class-a"></div>
+
+ - array구문도 사용할 수 있다.
+   <div v-bind:class="[classA, classB]"></div>
+   <script>
+    data : {
+        classA : 'class-a',
+        classB : 'class-b'
+    }
+   </script>
+
+
+* Template & DataBinding 실습
+
+
+* 싱글파일 Component (.vue) 와 JSX
+ - .vue파일을 브라우져가 렌더링 할 수있는 파일로 변환 하려면 webpack의 vue-loader
+    또는 browserify 가 필요.
+ - ES5만 사용하는 경우 single file component의 혜택을 볼 수 없음.
+
+
+* vue-cli를 이용한 프로젝트 구성.
+  - node.js 설치 npm 설치
+  - vue-cli설치 npm intall -global vue-cli
+  - vue의 webpack을 설치한다.
+    (테스트를 위하여 webpack, webpack-simple 두가지를 설치해본다.)
+    설치하고자 하는 폴더에서 하거나 아니면 vue init webpack 폴더명 과같이 설치.
