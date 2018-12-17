@@ -223,8 +223,10 @@
 
 
 * vue-cli를 이용한 프로젝트 구성.
-  - node.js 설치 npm 설치
+  - node.js 설치 npm 자동따라옴.
   - vue-cli설치 npm intall -global vue-cli
   - vue의 webpack을 설치한다.
     (테스트를 위하여 webpack, webpack-simple 두가지를 설치해본다.)
-    설치하고자 하는 폴더에서 하거나 아니면 vue init webpack 폴더명 과같이 설치.
+    설치하고자 하는 폴더에서 하거나 아니면 vue init webpack 폴더명 과같이 설치.(vue init webpack-simple 이나 vue init webpack 설치)
+    다음으로 npm install 해서 node_modules에 해당 모듈들 다 설치한다.
+    ---
