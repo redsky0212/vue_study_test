@@ -233,6 +233,27 @@
     다음으로 npm run dev 해서 띄워본다. webpack의 dev서버를 이용하여 띄움.
 
   - vue의 webpack을 설치 한다.
-    vue init webpack 폴더명 과 같이 설치. (현재폴더위치가 같으면 폴더명은 패스)
+    vue init webpack 폴더명 과 같이 설치. (현재폴더위치가 같으면 폴더명은 패스) 
     다음으로 npm install 해서 node_modules에 해당 모듈들 다 설치한다.(webpack설치하면 package.json에 명시되지만 npm install을 해줘야 의존성이 걸려있는 라이브러리가 설치가 됨)
     다음으로 npm run dev 해서 띄워본다. webpack의 dev서버를 이용하여 띄움.
+
+  - 결론
+    webpack으로 프로젝트 구성은 실제프로젝트에서 사용하면 될듯하고
+    webpack-simple로 프로젝트 구성은 테스트서버나 간단한 서버로 사용할때 사용.
+
+* vue-cli프로젝트 싱글파일컴포넌트 이용한 컴포넌트(전역,지역)등록
+  - webpack-simple로 프로젝트를 구성한다.
+  - 프로젝트의 src폴더에는 기본 App.vue와 main.js파일이 있다.
+  - main.js파일에 새로운 NavHeader라는 전역 컴포넌트를 등록한다.
+    import NavHeader from './components/NavHeader.vue';
+    Vue.component('nav-header', NavHeader);
+    // ES5기준으로는
+    var NavHeader = require('./components/NavHeader.vue');
+  - App.vue파일에 등록한 NavHeader컴포넌트를 사용하는 태그를 입력한다.
+    <nav-header></nav-header>
+  - NavHeader.vue파일을 해당폴더 밑에 만들고 코딩.
+  - 지역컴포넌트 등록을 위한 LoginForm.vue를 만들고 코딩.(예제페이지 참조)
+
+
+* Vue Loader 소개(webpack에 대해 스터디 필요)
+  - webpack의 loader중의 Vue Loader (.vue파일을 웹페이지에서 보여지게끔 뿌려주는 기능)
